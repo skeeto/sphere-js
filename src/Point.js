@@ -11,6 +11,7 @@ function Point(x, y, z) {
 }
 
 /**
+ * Shorthand Point construction.
  * @param {number} x
  * @param {number} y
  * @param {number} z

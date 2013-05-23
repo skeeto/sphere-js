@@ -1,4 +1,5 @@
 /**
+ * @param {CanvasRenderingContext2D} context
  * @constructor
  */
 function Display(context) {
@@ -13,6 +14,7 @@ function Display(context) {
  * Completely clear the display.
  * @param {string} [color] The background color to use.
  * @returns {Display} this.
+ * @method
  */
 Display.prototype.clear = function(color) {
     this.ctx.fillStyle = color || 'lightgray';
@@ -24,6 +26,7 @@ Display.prototype.clear = function(color) {
  * Project a 3D point onto this display.
  * @param {Point} point
  * @returns {Point} A 2-dimensional point.
+ * @method
  */
 Display.prototype.project = function(point) {
     return point.rotateY(this.f).rotateX(this.q).project(this.view, this.dist);
@@ -33,6 +36,7 @@ Display.prototype.project = function(point) {
  * Run a function in a drawing context.
  * @param {Function} f
  * @returns the result of calling f.
+ * @method
  */
 Display.prototype.draw = function(f) {
     this.ctx.save();
@@ -50,6 +54,7 @@ Display.prototype.draw = function(f) {
  * @param {Point} point
  * @param {string} [color]
  * @returns {Display} this.
+ * @method
  */
 Display.prototype.point = function(point, color) {
     var proj = this.project(point);
@@ -60,6 +65,14 @@ Display.prototype.point = function(point, color) {
     return this;
 };
 
+/**
+ * Draw a line between two points.
+ * @param {Point} a
+ * @param {Point} b
+ * @param {string} [color]
+ * @returns {Display} this.
+ * @method
+ */
 Display.prototype.line = function(a, b, color) {
     var a2 = this.project(a);
     var b2 = this.project(b);
@@ -69,4 +82,5 @@ Display.prototype.line = function(a, b, color) {
     this.ctx.moveTo(a2.x, a2.y);
     this.ctx.lineTo(b2.x, b2.y);
     this.ctx.stroke();
+    return this;
 };
