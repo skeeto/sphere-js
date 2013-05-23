@@ -29,6 +29,11 @@ Display.prototype.project = function(point) {
     return point.rotateY(this.f).rotateX(this.q).project(this.view, this.dist);
 };
 
+/**
+ * Run a function in a drawing context.
+ * @param {Function} f
+ * @returns the result of calling f.
+ */
 Display.prototype.draw = function(f) {
     this.ctx.save();
     var w = this.ctx.canvas.width,
