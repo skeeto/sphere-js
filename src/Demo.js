@@ -47,10 +47,20 @@ function step(display) {
         display.ctx.strokeStyle = 'black';
         cube(display);
     });
+    window.requestAnimationFrame(function() {
+        step(display);
+    });
 }
 
+var display;
 window.addEventListener('load', function() {
     var canvas = document.getElementById('display');
-    var display = new Display(canvas.getContext('2d'));
-    setInterval(function() { step(display); }, 15);
+    display = new Display(canvas.getContext('2d'));
+    if (window.requestAnimationFrame == null) {
+        window.requestAnimationFrame =
+            window.mozRequestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.msRequestAnimationFrame;
+    }
+    step(display);
 });
