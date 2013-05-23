@@ -42,9 +42,12 @@ Display.prototype.draw = function(f) {
         h = this.ctx.canvas.height;
     this.ctx.translate(w / 2, h / 2);
     this.ctx.scale(w, h);
-    var result = f();
-    this.ctx.restore();
-    return result;
+    try {
+        var result = f();
+    } finally {
+        this.ctx.restore();
+        return result;
+    }
 };
 
 /**
