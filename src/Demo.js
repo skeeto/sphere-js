@@ -29,14 +29,22 @@ function cube(display) {
 function step(display) {
     display.q += 0.005;
     display.f += 0.01;
-    display.clear('lightgray');
+    display.ctx.fillStyle = 'lightgray';
+    display.clear();
     display.draw(function() {
-        display.line(P(0, 0, 0), P(1, 0, 0), 'red');
-        display.line(P(0, 0, 0), P(0, 1, 0), 'green');
-        display.line(P(0, 0, 0), P(0, 0, 1), 'blue');
+        display.ctx.strokeStyle = 'red';
+        display.line(P(0, 0, 0), P(1, 0, 0));
+        display.ctx.strokeStyle = 'green';
+        display.line(P(0, 0, 0), P(0, 1, 0));
+        display.ctx.strokeStyle = 'blue';
+        display.line(P(0, 0, 0), P(0, 0, 1));
+
+        display.ctx.fillStyle = 'black';
         points.forEach(function(p) {
             display.point(p);
         });
+
+        display.ctx.strokeStyle = 'black';
         cube(display);
     });
 }
