@@ -91,6 +91,15 @@ Point.prototype.rotateY = function(a) {
 };
 
 /**
+ * @returns {Point} this point normalized.
+ * @method
+ */
+Point.prototype.normalize = function() {
+    return this.div(this.abs());
+};
+
+/**
+ * Select a point inside a unit sphere and project it onto the sphere.
  * @returns {Point} A uniformly random point on the outside of a unit sphere.
  */
 Point.random = function() {
@@ -98,10 +107,11 @@ Point.random = function() {
     do {
         var p = new Point(r(), r(), r());
     } while (p.abs() > 1);
-    return p.div(p.abs());
+    return p.normalize();
 };
 
 /**
+ * Select two spherical coordinate angles and set radius to 1.
  * @returns {Point} A biased random point on the outside of a unit sphere.
  */
 Point.randomSpherical = function() {
@@ -110,4 +120,13 @@ Point.randomSpherical = function() {
     return new Point(Math.sin(q) * Math.cos(f),
                      Math.sin(q) * Math.sin(f),
                      Math.cos(q));
+};
+
+/**
+ * Select a point in the unit cube and project it into the sphere.
+ * @returns {Point} A biased random point on the outside of a unit sphere.
+ */
+Point.randomCube = function() {
+    function unit() { return Math.random() * 2 - 1; }
+    return P(unit(), unit(), unit()).normalize();
 };
