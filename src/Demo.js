@@ -27,8 +27,7 @@ function cube(display) {
 }
 
 function step(display) {
-    display.q += 0.005;
-    display.f += 0.01;
+    display.rotation = display.rotation.plus(P(0.005, 0.01, 0));
     display.ctx.fillStyle = 'lightgray';
     display.clear();
     display.draw(function() {

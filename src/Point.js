@@ -56,16 +56,24 @@ Point.prototype.mult = function(s) {
 };
 
 /**
+ * @param {Point} point
+ * @returns {Point} a new point.
+ * @method
+ */
+Point.prototype.plus = function(point) {
+    return new Point(this.x + point.x, this.y + point.y, this.z + point.z);
+};
+
+/**
  * Project this point onto a 2D surface, with the camera pointed at
- * the origin along the z-axis.
- * @param {number} v Distance between camera and surface.
- * @param {number} d Distance between origin and surface.
+ * the origin along the z-axis. The origin is on the surface.
+ * @param {number} fl Focal length (distance between camera and surface).
  * @returns {Point}
  * @method
  */
-Point.prototype.project = function(v, d) {
-    return new Point((v * this.x) / (d + v + this.z),
-                     (v * this.y) / (d + v + this.z));
+Point.prototype.project = function(fl) {
+    return new Point((fl * this.x) / (fl + this.z),
+                     (fl * this.y) / (fl + this.z));
 };
 
 /**

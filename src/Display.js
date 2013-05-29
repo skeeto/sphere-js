@@ -4,10 +4,9 @@
  */
 function Display(ctx) {
     this.ctx = ctx;
-    this.view = 1;
-    this.dist = 1.5;
-    this.q = 0;
-    this.f = 0;
+    this.fl = 1;
+    this.translate = P(0, 0, 1.5);
+    this.rotation = P(0, 0, 0);
 }
 
 /**
@@ -27,7 +26,8 @@ Display.prototype.clear = function() {
  * @method
  */
 Display.prototype.project = function(point) {
-    return point.rotateY(this.f).rotateX(this.q).project(this.view, this.dist);
+    return point.rotateY(this.rotation.y).rotateX(this.rotation.x)
+        .plus(this.translate).project(this.fl);
 };
 
 /**
