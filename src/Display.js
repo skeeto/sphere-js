@@ -7,6 +7,7 @@ function Display(ctx) {
     this.fl = 1;
     this.translate = P(0, 0, 1.5);
     this.rotation = P(0, 0, 0);
+    this.scale = 1;
 }
 
 /**
@@ -41,7 +42,7 @@ Display.prototype.draw = function(f) {
     var w = this.ctx.canvas.width,
         h = this.ctx.canvas.height;
     this.ctx.translate(w / 2, h / 2);
-    this.ctx.scale(w, h);
+    this.ctx.scale(this.scale * w, this.scale * h);
     try {
         var result = f();
     } finally {
@@ -59,7 +60,7 @@ Display.prototype.draw = function(f) {
 Display.prototype.point = function(point) {
     var proj = this.project(point);
     this.ctx.beginPath();
-    this.ctx.arc(proj.x, proj.y, 0.0025, 0, Math.PI * 2);
+    this.ctx.arc(proj.x, proj.y, 0.0025 / this.scale, 0, Math.PI * 2);
     this.ctx.fill();
     return this;
 };
@@ -74,7 +75,7 @@ Display.prototype.point = function(point) {
 Display.prototype.line = function(a, b) {
     var a2 = this.project(a);
     var b2 = this.project(b);
-    this.ctx.lineWidth = 0.003;
+    this.ctx.lineWidth = 0.003 / this.scale;
     this.ctx.beginPath();
     this.ctx.moveTo(a2.x, a2.y);
     this.ctx.lineTo(b2.x, b2.y);
