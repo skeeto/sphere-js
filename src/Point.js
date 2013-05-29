@@ -30,6 +30,15 @@ Point.prototype.toString = function() {
 };
 
 /**
+ * @returns {string} a CSS rgba() string.
+ * @method
+ */
+Point.prototype.toColor = function() {
+    return 'rgba(' + ~~(255 * this.x) + ',' + ~~(255 * this.y) + ',' +
+        ~~(255 * this.z) + ',1)';
+};
+
+/**
  * @returns {number} the distance from the origin.
  * @method
  */
