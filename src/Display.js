@@ -4,10 +4,10 @@
  */
 function Display(ctx) {
     this.ctx = ctx;
-    this.fl = 1;
+    this.fl = 4;
+    this.scale = 0.6;
     this.translate = P(0, 0, 1.5);
     this.rotation = P(0, 0, 0);
-    this.scale = 1;
 }
 
 /**
