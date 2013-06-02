@@ -42,9 +42,11 @@ function setup(display) {
     for (var i = 0; i < count; i++) {
         display.addPoint(Point.randomSpherical(), P(0, 0, 0));
     }
-    display.addLine(P(0, 0, 0), P(1, 0, 0), P(1, 0, 0));
-    display.addLine(P(0, 0, 0), P(0, 1, 0), P(0, 0.75, 0));
-    display.addLine(P(0, 0, 0), P(0, 0, 1), P(0, 0, 1));
+    if (display instanceof Display2D) {
+        display.addLine(P(0, 0, 0), P(1, 0, 0), P(1, 0, 0));
+        display.addLine(P(0, 0, 0), P(0, 1, 0), P(0, 0.75, 0));
+        display.addLine(P(0, 0, 0), P(0, 0, 1), P(0, 0, 1));
+    }
     cube(display);
 }
 
