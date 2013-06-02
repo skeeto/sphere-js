@@ -4,7 +4,12 @@
  * @constructor
  */
 function Display(canvas) {
-    return new Display2D(canvas.getContext('2d'));
+    var gl = canvas.getContext('webgl');
+    if (gl == null) {
+        return new Display2D(canvas.getContext('2d'));
+    } else {
+        return new DisplayGL(gl);
+    }
 }
 
 Display.prototype.fl = 4;
