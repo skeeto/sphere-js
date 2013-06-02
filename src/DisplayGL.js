@@ -21,6 +21,7 @@ DisplayGL.prototype.init = function() {
     var gl = this.gl;
     gl.enable(gl.BLEND);
     gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.lineWidth(3);
 
     this.programs = {};
     this.programs.dots = new Program(gl, 'src/project.vert', 'src/dot.frag');
@@ -87,7 +88,7 @@ DisplayGL.prototype.render = function() {
         .uniform('focal', this.fl)
         .uniform('scale', this.scale * 2)
         .uniform('color', P(0, 0, 0))
-        .draw(gl.LINES, this.lines.length);
+        .draw(gl.LINES, this.lines.length * 2);
 
     return this;
 };
