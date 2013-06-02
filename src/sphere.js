@@ -50,7 +50,7 @@ function setup(display) {
     cube(display);
 }
 
-var display;
+var display;  // for skewer
 window.addEventListener('load', function() {
     var canvas = document.getElementById('display');
     display = new Display(canvas);
