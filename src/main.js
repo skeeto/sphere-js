@@ -51,6 +51,10 @@ var display;
 window.addEventListener('load', function() {
     var canvas = document.getElementById('display');
     display = new Display(canvas);
+    if (!(display instanceof DisplayGL)) {
+        var warning = document.querySelector('.warning');
+        warning.style.display = 'block';
+    }
     if (window.requestAnimationFrame == null) {
         window.requestAnimationFrame =
             window.mozRequestAnimationFrame ||

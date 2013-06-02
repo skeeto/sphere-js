@@ -1,0 +1,17 @@
+body {
+    background-color: lightgray;
+    font-family: sans-serif;
+}
+
+canvas {
+    display: block;
+    margin: auto;
+}
+
+.warning {
+    color: red;
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+    display: none;
+}
