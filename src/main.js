@@ -50,7 +50,7 @@ function setup(display) {
 var display;
 window.addEventListener('load', function() {
     var canvas = document.getElementById('display');
-    display = new Display(canvas.getContext('2d'));
+    display = new Display(canvas);
     if (window.requestAnimationFrame == null) {
         window.requestAnimationFrame =
             window.mozRequestAnimationFrame ||
