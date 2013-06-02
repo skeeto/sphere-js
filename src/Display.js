@@ -4,7 +4,8 @@
  * @constructor
  */
 function Display(canvas) {
-    var gl = canvas.getContext('webgl');
+    var gl = canvas.getContext('webgl') ||
+            canvas.getContext('experimental-webgl');
     if (gl == null) {
         return new Display2D(canvas.getContext('2d'));
     } else {
