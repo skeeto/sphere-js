@@ -38,7 +38,8 @@ function step(display) {
  */
 function setup(display) {
     display.clearData();
-    for (var i = 0; i < 4000; i++) {
+    var count = display instanceof DisplayGL ? 10000 : 4000;
+    for (var i = 0; i < count; i++) {
         display.addPoint(Point.randomSpherical(), P(0, 0, 0));
     }
     display.addLine(P(0, 0, 0), P(1, 0, 0), P(1, 0, 0));
