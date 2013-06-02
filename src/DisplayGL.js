@@ -24,6 +24,7 @@ DisplayGL.prototype.init = function() {
 
     this.programs = {};
     this.programs.dots = new Program(gl, 'src/project.vert', 'src/dot.frag');
+    this.programs.lines = new Program(gl, 'src/project.vert', 'src/color.frag');
 
     this.dirty = true;
     return this;
@@ -35,12 +36,17 @@ DisplayGL.prototype.init = function() {
  */
 DisplayGL.prototype.clean = function() {
     var start = Date.now();
-
     var gl = this.gl;
+
     var packer = new PointPacker().pushAll(this.points, function(e) {
         return [e.point];
     });
-    this.programs.dots.attrib('position', packer.pack(), 3);
+    this.programs.dots.buffer = packer.pack(gl);
+
+    packer = new PointPacker().pushAll(this.lines, function(e) {
+        return [e.a, e.b];
+    });
+    this.programs.lines.buffer = packer.pack(gl);
 
     console.log('Update took ' + ((Date.now() - start) / 1000) + ' seconds.');
     this.dirty = false;
@@ -67,14 +73,21 @@ DisplayGL.prototype.render = function() {
     this.clear();
 
     this.programs.dots.use()
+        .attrib('position', this.programs.dots.buffer, 3)
         .uniform('translate', this.translate)
         .uniform('rotate', this.rotate)
         .uniform('focal', this.fl)
-        .uniform('scale', this.scale * 2);
-    gl.drawArrays(gl.POINTS, 0, this.points.length);
-    if (gl.getError() !== gl.NO_ERROR) {
-        throw new Error('WebGL rendering error');
-    }
+        .uniform('scale', this.scale * 2)
+        .draw(gl.POINTS, this.points.length);
+
+    this.programs.lines.use()
+        .attrib('position', this.programs.lines.buffer, 3)
+        .uniform('translate', this.translate)
+        .uniform('rotate', this.rotate)
+        .uniform('focal', this.fl)
+        .uniform('scale', this.scale * 2)
+        .uniform('color', P(0, 0, 0))
+        .draw(gl.LINES, this.lines.length);
 
     return this;
 };

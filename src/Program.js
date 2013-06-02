@@ -84,9 +84,16 @@ Program.prototype.attrib = function(name, value, size) {
     } else {
         if (this.vars[name] == null) this.attrib(name);
         var gl = this.gl;
-        gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-        gl.bufferData(gl.ARRAY_BUFFER, value, gl.STATIC_DRAW);
+        gl.bindBuffer(gl.ARRAY_BUFFER, value);
         gl.vertexAttribPointer(this.vars[name], size, gl.FLOAT, false, 0, 0);
+    }
+    return this;
+};
+
+Program.prototype.draw = function(mode, count) {
+    this.gl.drawArrays(mode, 0, count);
+    if (this.gl.getError() !== this.gl.NO_ERROR) {
+        throw new Error('WebGL rendering error');
     }
     return this;
 };
