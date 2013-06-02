@@ -55,7 +55,11 @@ window.addEventListener('load', function() {
         window.requestAnimationFrame =
             window.mozRequestAnimationFrame ||
             window.webkitRequestAnimationFrame ||
-            window.msRequestAnimationFrame;
+            window.msRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            function(f) {
+                setTimeout(f, 16);
+            };
     }
     setup(display);
     step(display);
