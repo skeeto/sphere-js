@@ -42,21 +42,13 @@ DisplayGL.prototype.clean = function() {
     var start = Date.now();
 
     var gl = this.gl;
-    var array = new Float32Array(this.points.length * 3);
-    for (var i = 0; i < this.points.length; i++) {
-        array[3 * i + 0] = this.points[i].point.x;
-        array[3 * i + 1] = this.points[i].point.y;
-        array[3 * i + 2] = this.points[i].point.z;
-    }
-    var buffer = gl.createBuffer();
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-    gl.bufferData(gl.ARRAY_BUFFER, array, gl.STATIC_DRAW);
-    gl.vertexAttribPointer(this.programs.dots.vars.position,
-                           3, gl.FLOAT, false, 0, 0);
-    this.dirty = false;
+    var packer = new PointPacker().pushAll(this.points, function(e) {
+        return [e.point];
+    });
+    this.programs.dots.attrib('position', packer.pack(), 3);
 
-    var time = (Date.now() - start) / 1000;
-    console.log('Update took ' + time + ' seconds.');
+    console.log('Update took ' + ((Date.now() - start) / 1000) + ' seconds.');
+    this.dirty = false;
     return this;
 };
 

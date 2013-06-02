@@ -66,7 +66,7 @@ Program.prototype.uniform = function(name, value) {
     if (value == null) {
         this.vars[name] = this.gl.getUniformLocation(this.program, name);
     } else {
-        this.use();
+        if (this.vars[name] == null) this.uniform(name);
         var v = this.vars[name];
         if (value instanceof Point) {
             this.gl.uniform3f(v, value.x, value.y, value.z);
@@ -77,8 +77,16 @@ Program.prototype.uniform = function(name, value) {
     return this;
 };
 
-Program.prototype.attrib = function(name) {
-    this.vars[name] = this.gl.getAttribLocation(this.program, name);
-    this.gl.enableVertexAttribArray(this.vars.position);
+Program.prototype.attrib = function(name, value, size) {
+    if (value == null) {
+        this.vars[name] = this.gl.getAttribLocation(this.program, name);
+        this.gl.enableVertexAttribArray(this.vars.position);
+    } else {
+        if (this.vars[name] == null) this.attrib(name);
+        var gl = this.gl;
+        gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+        gl.bufferData(gl.ARRAY_BUFFER, value, gl.STATIC_DRAW);
+        gl.vertexAttribPointer(this.vars[name], size, gl.FLOAT, false, 0, 0);
+    }
     return this;
 };
