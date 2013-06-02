@@ -33,7 +33,7 @@ Display.prototype.render = Display.error();
 /**
  * @param {Point} point
  * @param {Point} color
- * @returns this.
+ * @returns {Display} this
  * @method
  */
 Display.prototype.addPoint = function(point, color) {
@@ -45,7 +45,7 @@ Display.prototype.addPoint = function(point, color) {
 /**
  * @param {Point} a
  * @param {Point} b
- * @returns this.
+ * @returns {Display} this
  * @method
  */
 Display.prototype.addLine = function(a, b, color) {
@@ -55,7 +55,7 @@ Display.prototype.addLine = function(a, b, color) {
 };
 
 /**
- * @returns this.
+ * @returns {Display} this
  * @method
  */
 Display.prototype.clearData = function() {

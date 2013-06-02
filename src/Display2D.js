@@ -14,7 +14,7 @@ Display2D.prototype.constructor = Display2D;
 /**
  * Completely clear the display.
  * @param {Point} [color]
- * @returns {Display2D} this.
+ * @returns {Display2D} this
  * @method
  */
 Display2D.prototype.clear = function(color) {
@@ -59,7 +59,7 @@ Display2D.prototype.draw = function(f) {
 /**
  * Draw a 3D point on the display.
  * @param {Point} point
- * @returns {Display2D} this.
+ * @returns {Display2D} this
  * @method
  * @private
  */
@@ -76,7 +76,7 @@ Display2D.prototype.point = function(point) {
  * @param {Point} a
  * @param {Point} b
  * @param {Point} color
- * @returns {Display2D} this.
+ * @returns {Display2D} this
  * @method
  * @private
  */
