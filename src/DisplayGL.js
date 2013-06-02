@@ -98,6 +98,7 @@ DisplayGL.prototype.init = function() {
     this.vars.translate = gl.getUniformLocation(this.program, 'translate');
     this.vars.rotate = gl.getUniformLocation(this.program, 'rotate');
     this.vars.focal = gl.getUniformLocation(this.program, 'focal');
+    this.vars.scale = gl.getUniformLocation(this.program, 'scale');
 
     gl.useProgram(this.program);
     this.dirty = true;
@@ -147,6 +148,7 @@ DisplayGL.prototype.render = function() {
     this.uniform('translate', this.translate);
     this.uniform('rotate', this.rotate);
     this.uniform('focal', this.fl);
+    this.uniform('scale', this.scale * 2);
     gl.drawArrays(gl.POINTS, 0, this.points.length);
     if (gl.getError() !== gl.NO_ERROR) {
         throw new Error('WebGL rendering error');
