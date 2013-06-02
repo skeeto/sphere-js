@@ -26,7 +26,7 @@ function step(display) {
     function rotate(scale) {
         return (Date.now() / 1000 / scale) % (Math.PI * 2);
     }
-    display.rotation = P(rotate(4), rotate(Math.sqrt(60)));
+    display.rotate = P(rotate(4), rotate(Math.sqrt(60)));
     display.render();
     window.requestAnimationFrame(function() {
         step(display);

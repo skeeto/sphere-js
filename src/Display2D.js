@@ -4,16 +4,12 @@
  */
 function Display2D(ctx) {
     this.ctx = ctx;
-    this.fl = 4;
-    this.scale = 0.6;
-    this.translate = P(0, 0, 1.5);
-    this.rotation = P(0, 0, 0);
     this.points = [];
     this.lines = [];
 }
 
 Display2D.prototype = Object.create(Display.prototype);
-Display.prototype.constructor = Display2D;
+Display2D.prototype.constructor = Display2D;
 
 /**
  * Completely clear the display.
@@ -35,7 +31,7 @@ Display2D.prototype.clear = function(color) {
  * @private
  */
 Display2D.prototype.project = function(point) {
-    return point.rotateY(this.rotation.y).rotateX(this.rotation.x)
+    return point.rotateY(this.rotate.y).rotateX(this.rotate.x)
         .plus(this.translate).project(this.fl);
 };
 
@@ -92,38 +88,6 @@ Display2D.prototype.line = function(a, b, color) {
     this.ctx.moveTo(a2.x, a2.y);
     this.ctx.lineTo(b2.x, b2.y);
     this.ctx.stroke();
-    return this;
-};
-
-/**
- * @param {Point} point
- * @param {Point} color
- * @returns this.
- * @method
- */
-Display2D.prototype.addPoint = function(point, color) {
-    this.points.push({point: point, color: color.toColor()});
-    return this;
-};
-
-/**
- * @param {Point} a
- * @param {Point} b
- * @returns this.
- * @method
- */
-Display2D.prototype.addLine = function(a, b, color) {
-    this.lines.push({a: a, b: b, color: color.toColor()});
-    return this;
-};
-
-/**
- * @returns this.
- * @method
- */
-Display2D.prototype.clearData = function() {
-    this.points.length = 0;
-    this.lines.length = 0;
     return this;
 };
 
