@@ -24,11 +24,6 @@ DisplayGL.prototype.init = function() {
 
     this.programs = {};
     this.programs.dots = new Program(gl, 'src/project.vert', 'src/dot.frag');
-    this.programs.dots.attrib('position')
-        .uniform('translate')
-        .uniform('rotate')
-        .uniform('focal')
-        .uniform('scale');
 
     this.dirty = true;
     return this;
