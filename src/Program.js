@@ -1,5 +1,6 @@
 /**
- * Compile and link a program from a pair of shaders.
+ * Fluent WebGLProgram wrapper for managing variables and data. The
+ * constructor compiles and links a program from a pair of shaders.
  * @param {WebGLRenderingContext} gl
  * @param {string} vertUrl
  * @param {string} vergrafUrl
@@ -48,7 +49,7 @@ Program.prototype.makeShader = function(type, url) {
 };
 
 /**
- * Tell WebGL to use this program.
+ * Tell WebGL to use this program right now.
  * @returns {Program} this
  */
 Program.prototype.use = function() {
@@ -57,10 +58,10 @@ Program.prototype.use = function() {
 };
 
 /**
- * Set a uniform's data.
+ * Declare a uniform or set a uniform's data.
  * @param {string} name uniform variable name
  * @param {number|Point} [value]
- * @returns {DisplayGL} this
+ * @returns {Program} this
  */
 Program.prototype.uniform = function(name, value) {
     if (value == null) {
@@ -77,6 +78,13 @@ Program.prototype.uniform = function(name, value) {
     return this;
 };
 
+/**
+ * Declare an attrib or set an attrib's buffer.
+ * @param {string} name attrib variable name
+ * @param {WebGLBuffer} [value]
+ * @param {number} [size] element size
+ * @returns {Program} this
+ */
 Program.prototype.attrib = function(name, value, size) {
     if (value == null) {
         this.vars[name] = this.gl.getAttribLocation(this.program, name);
@@ -90,6 +98,12 @@ Program.prototype.attrib = function(name, value, size) {
     return this;
 };
 
+/**
+ * Call drawArrays with this program. You must call this.use() first.
+ * @param {number} mode
+ * @param {number} count the total buffer length
+ * @returns {Program} this
+ */
 Program.prototype.draw = function(mode, count) {
     this.gl.drawArrays(mode, 0, count);
     if (this.gl.getError() !== this.gl.NO_ERROR) {
