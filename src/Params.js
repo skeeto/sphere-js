@@ -13,8 +13,14 @@ function Params(defaults, location) {
         this.defaults = defaults;
         this.values = {};
         location.search.slice(1).split(/&/).forEach(function(pair) {
-            var split = pair.split('=').map(decodeURIComponent);
-            this.values[split[0]] = JSON.parse(split[1]);
+            if (pair) {
+                try {
+                    var split = pair.split(/=/).map(decodeURIComponent);
+                    this.values[split[0]] = JSON.parse(split[1] || 'null');
+                } catch (e) {
+                    console.log('invalid pair: ' + pair);
+                }
+            }
         }.bind(this));
         return this;
     }
